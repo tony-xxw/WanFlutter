@@ -115,14 +115,16 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Text(
               '$_counter',
-              style: Theme.of(context).textTheme.headline4,
+              style: Theme
+                  .of(context)
+                  .textTheme
+                  .headline4,
             ),
             RaisedButton(
               child: Text("模拟请求"),
-              onPressed: () => {
-
-              },
-            )
+              onPressed: () => {renderSome()},
+            ), Text(name),
+            _getBottomItem(Icons.star,"1000")
           ],
         ),
       ),
@@ -131,6 +133,50 @@ class _MyHomePageState extends State<MyHomePage> {
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
+    );
+  }
+
+  request() async {
+    await Future.delayed(Duration(seconds: 1));
+    return "OK";
+  }
+
+  doSomething() async {
+    String data = await request();
+    data = "ok from request";
+    return data;
+  }
+
+  renderSome() {
+    doSomething().then((value) => print(value));
+  }
+
+  _getBottomItem(IconData icon, String text) {
+    return Expanded(
+      flex: 1,
+      child: Center(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Icon(
+              icon,
+              size: 16,
+              color: Colors.grey,
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: 5),
+            ),
+            Text(
+              text,
+              style: TextStyle(color: Colors.grey, fontSize: 14),
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
+            )
+          ],
+        ),
+      ),
     );
   }
 }
