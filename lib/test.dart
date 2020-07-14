@@ -50,14 +50,34 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  List<Widget> tabs = [
+    _renderTab(Icons.home, "首页"),
+    _renderTab(Icons.my_location, "我的")
+  ];
+  TabController tabController;
+//
   int _counter = 0;
   var name;
 
-  _MyHomePageState(this.name);
 
+  _MyHomePageState(this.name);
   _MyHomePageState.empty();
 
   _MyHomePageState.forName(this.name);
+
+  _renderTab(icon, text) {
+    return Tab(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            new Icon(
+              icon,
+              size: 16,
+            ),
+            Text(text)
+          ],
+        ));
+  }
 
   void _incrementCounter() {
     setState(() {
@@ -77,6 +97,12 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    tabController=TabController(vsync: this, length: tabs.length);
+  }
+
+  @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
@@ -84,6 +110,7 @@ class _MyHomePageState extends State<MyHomePage> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
+
     return Scaffold(
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
@@ -115,16 +142,14 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Text(
               '$_counter',
-              style: Theme
-                  .of(context)
-                  .textTheme
-                  .headline4,
+              style: Theme.of(context).textTheme.headline4,
             ),
             RaisedButton(
               child: Text("模拟请求"),
               onPressed: () => {renderSome()},
-            ), Text(name),
-            _getBottomItem(Icons.star,"1000")
+            ),
+            Text(name),
+            _getBottomItem(Icons.star, "1000")
           ],
         ),
       ),
@@ -133,6 +158,13 @@ class _MyHomePageState extends State<MyHomePage> {
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
+      bottomNavigationBar: new Material(
+        color: Colors.deepOrange,
+        child: TabBar(
+          controller: tabController,
+          tabs: tabs,
+        ),
+      ),
     );
   }
 
@@ -179,4 +211,6 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
+
+
 }
