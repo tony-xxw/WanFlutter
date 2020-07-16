@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+
 void main() {
   runApp(MyApp());
 }
@@ -24,7 +25,6 @@ class MyApp extends StatelessWidget {
         // This makes the visual density adapt to the platform that you run
         // the app on. For desktop platforms, the controls will be smaller and
         // closer together (more dense) than on mobile platforms.
-        visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
@@ -49,10 +49,10 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState("wynne");
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   List<Widget> tabs = [
-    _renderTab(Icons.home, "首页"),
-    _renderTab(Icons.my_location, "我的")
+    Text( "首页"),
+    Text("我的")
   ];
   TabController tabController;
 //
@@ -142,8 +142,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Text(
               '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
+             ),
             RaisedButton(
               child: Text("模拟请求"),
               onPressed: () => {renderSome()},
