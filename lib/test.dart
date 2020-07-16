@@ -49,18 +49,16 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState("wynne");
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  List<Widget> tabs = [
-    _renderTab(Icons.home, "首页"),
-    _renderTab(Icons.my_location, "我的")
-  ];
+class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
+  List<Widget> tabs = [Text("首页"), Text("我的")];
   TabController tabController;
+
 //
   int _counter = 0;
   var name;
 
-
   _MyHomePageState(this.name);
+
   _MyHomePageState.empty();
 
   _MyHomePageState.forName(this.name);
@@ -68,15 +66,15 @@ class _MyHomePageState extends State<MyHomePage> {
   _renderTab(icon, text) {
     return Tab(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            new Icon(
-              icon,
-              size: 16,
-            ),
-            Text(text)
-          ],
-        ));
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        new Icon(
+          icon,
+          size: 16,
+        ),
+        Text(text)
+      ],
+    ));
   }
 
   void _incrementCounter() {
@@ -99,7 +97,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    tabController=TabController(vsync: this, length: tabs.length);
+    tabController = TabController(vsync: this, length: tabs.length);
   }
 
   @override
@@ -211,6 +209,4 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
-
-
 }
