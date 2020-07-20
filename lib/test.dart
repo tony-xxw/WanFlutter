@@ -1,9 +1,32 @@
+import 'package:dio/dio.dart';
+import 'package:flustars/flustars.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:wanflutter/net/DioUtils.dart';
 import 'package:wanflutter/sample/tab.dart';
 
-void main() => runApp(TestHome());
+Future<void> main() async {
+  await SpUtil.getInstance();
+
+  SystemUiOverlayStyle systemUiOverlayStyle =
+      SystemUiOverlayStyle(statusBarColor: Colors.transparent);
+  SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
+  runApp(TestHome());
+  DioUtils();
+}
 
 class TestHome extends StatelessWidget {
+  final Widget home;
+  final ThemeData theme;
+
+  TestHome({this.home, this.theme}) {
+    initDio();
+  }
+
+  void initDio() {
+    final List<Interceptor> interceptor = [];
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
