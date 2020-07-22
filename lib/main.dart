@@ -5,6 +5,8 @@ import 'package:wanflutter/pages/navigation.dart';
 import 'package:wanflutter/pages/profile.dart';
 import 'package:wanflutter/pages/system.dart';
 
+import 'net/dio_utils.dart';
+
 void main() {
   runApp(Main());
 }
@@ -19,6 +21,12 @@ class Main extends StatefulWidget {
 class _Main extends State<Main> {
   int _indexNum = 0;
   List<Widget> widgetList = [Home(), Navigation(), System(), Profile()];
+
+  @override
+  void initState() {
+    super.initState();
+   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +44,6 @@ class _Main extends State<Main> {
               },
             )
           ],
-
           title: Text(defaultTitle),
         ),
         body: _getPageWidth(_indexNum),
