@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:wanflutter/pages/home.dart';
@@ -5,7 +6,9 @@ import 'package:wanflutter/pages/navigation.dart';
 import 'package:wanflutter/pages/profile.dart';
 import 'package:wanflutter/pages/system.dart';
 
+import 'common/common.dart';
 import 'net/dio_utils.dart';
+import 'net/interceptor.dart';
 
 void main() {
   runApp(Main());
@@ -19,14 +22,12 @@ class Main extends StatefulWidget {
 }
 
 class _Main extends State<Main> {
+  _Main() {
+    initDio();
+  }
+
   int _indexNum = 0;
   List<Widget> widgetList = [Home(), Navigation(), System(), Profile()];
-
-  @override
-  void initState() {
-    super.initState();
-   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -84,6 +85,24 @@ class _Main extends State<Main> {
 
   Widget _getPageWidth(index) {
     return widgetList[index];
+  }
+
+  void initDio() {
+    final List<Interceptor> interceptors = [];
+
+    /// 统一添加身份验证请求头
+    interceptors.add(AuthInterceptor());
+
+    /// 打印Log(生产模式去除)
+    if (!Constant.inProduction) {
+      interceptors.add(LoggingInterceptor());
+    }
+
+    /// 适配数据(根据自己的数据结构，可自行选择添加)
+    interceptors.add(AdapterInterceptor());
+    setInitDio(
+      interceptors: interceptors,
+    );
   }
 }
 

@@ -4,6 +4,21 @@ String _baseUrl = "https://www.wanandroid.com/";
 int _connectTimeout = 15000;
 int _receiveTimeout = 15000;
 int _sendTimeout = 10000;
+List<Interceptor> _interceptors = [];
+
+setInitDio({
+  int connectTimeout,
+  int receiveTimeout,
+  int sendTimeout,
+  String baseUrl,
+  List<Interceptor> interceptors,
+}) {
+  _connectTimeout = connectTimeout ?? _connectTimeout;
+  _receiveTimeout = receiveTimeout ?? _receiveTimeout;
+  _sendTimeout = sendTimeout ?? _sendTimeout;
+  _baseUrl = baseUrl ?? _baseUrl;
+  _interceptors = interceptors ?? _interceptors;
+}
 
 class DioUtils {
   /*
@@ -38,6 +53,11 @@ class DioUtils {
         sendTimeout: _sendTimeout);
 
     _dio = Dio(_options);
+
+    /// 添加拦截器
+    _interceptors.forEach((interceptor) {
+      _dio.interceptors.add(interceptor);
+    });
   }
 
   static DioUtils _getInstance() {
