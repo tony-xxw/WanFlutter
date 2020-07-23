@@ -5,6 +5,7 @@ import 'package:wanflutter/pages/home.dart';
 import 'package:wanflutter/pages/navigation.dart';
 import 'package:wanflutter/pages/profile.dart';
 import 'package:wanflutter/pages/system.dart';
+import 'package:wanflutter/widgets/search_bar.dart';
 
 import 'common/common.dart';
 import 'net/dio_utils.dart';
@@ -35,17 +36,8 @@ class _Main extends State<Main> {
       title: defaultTitle,
       home: Scaffold(
         drawer: MenuDraw(),
-        appBar: AppBar(
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(Icons.search),
-              onPressed: () {
-                showSearch(
-                    context: context, delegate: SearchPageCustomDelegate());
-              },
-            )
-          ],
-          title: Text(defaultTitle),
+        appBar: SearchBar(
+          hintText: "请搜索",
         ),
         body: _getPageWidth(_indexNum),
         bottomNavigationBar: BottomNavigationBar(
