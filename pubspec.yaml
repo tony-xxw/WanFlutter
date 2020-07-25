@@ -36,6 +36,8 @@ dependencies:
   dio: ^3.0.9
   # 格式化String https://github.com/Naddiseo/dart-sprintf
   sprintf: ^4.0.2
+  # 路由库
+  fluro: ^1.6.3
 
 dev_dependencies:
   flutter_test:

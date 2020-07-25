@@ -1,38 +1,36 @@
 import 'package:dio/dio.dart';
+import 'package:fluro/fluro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:wanflutter/pages/home.dart';
-import 'package:wanflutter/pages/navigation.dart';
-import 'package:wanflutter/pages/profile.dart';
-import 'package:wanflutter/pages/system.dart';
-import 'package:wanflutter/widgets/search_bar.dart';
+
+import 'package:wanflutter/routers/application.dart';
+import 'package:wanflutter/routers/routers.dart';
 
 import 'common/common.dart';
 import 'net/dio_utils.dart';
 import 'net/interceptor.dart';
 
 void main() {
-  runApp(Main());
+  runApp(App());
 }
 
 const defaultTitle = "WanAndroid";
 
-class Main extends StatefulWidget {
+class App extends StatefulWidget {
   @override
-  _Main createState() => _Main();
+  _App createState() => _App();
 }
 
-class _Main extends State<Main> {
-  _Main() {
+class _App extends State<App> {
+  _App() {
     initDio();
+    initRouter();
   }
-
-  int _indexNum = 0;
-  List<Widget> widgetList = [Home(), Navigation(), System(), Profile()];
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      onGenerateRoute: Application.router.generator,
       theme: ThemeData(
           brightness: Brightness.light,
           primaryColor: Colors.lightBlue[800],
@@ -43,49 +41,7 @@ class _Main extends State<Main> {
               headline6: TextStyle(fontSize: 36.0, fontStyle: FontStyle.italic),
               bodyText2: TextStyle(fontSize: 14.0, fontFamily: 'Hind'))),
       title: defaultTitle,
-      home: Scaffold(
-        drawer: MenuDraw(),
-        appBar: SearchBar(
-          hintText: "请搜索",
-        ),
-        body: _getPageWidth(_indexNum),
-        bottomNavigationBar: BottomNavigationBar(
-          items: [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              title: Text("首页"),
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.navigation),
-              title: Text("导航"),
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.system_update),
-              title: Text("体系"),
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              title: Text("我"),
-            )
-          ],
-          iconSize: 24,
-          currentIndex: _indexNum,
-          fixedColor: Colors.lightBlueAccent,
-          type: BottomNavigationBarType.fixed,
-          onTap: (index) {
-            if (_indexNum != index) {
-              setState(() {
-                _indexNum = index;
-              });
-            }
-          },
-        ),
-      ),
     );
-  }
-
-  Widget _getPageWidth(index) {
-    return widgetList[index];
   }
 
   void initDio() {
@@ -104,6 +60,12 @@ class _Main extends State<Main> {
     setInitDio(
       interceptors: interceptors,
     );
+  }
+
+  void initRouter() {
+    Router router = Router();
+    Routers.configureRoute(router);
+    Application.router = router;
   }
 }
 
