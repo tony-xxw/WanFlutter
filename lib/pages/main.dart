@@ -32,10 +32,6 @@ class _Main extends State<Main> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: MenuDraw(),
-      appBar: SearchBar(
-        hintText: "请搜索",
-      ),
       body: _getPageWidth(_indexNum),
       bottomNavigationBar: BottomNavigationBar(
         items: [

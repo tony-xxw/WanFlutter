@@ -101,7 +101,7 @@ class AdapterInterceptor extends Interceptor {
         content = _kDefaultText;
       }
       result = sprintf(_kSuccessFormat, [content]);
-      response. statusCode = ExceptionHandle.success;
+      response.statusCode = ExceptionHandle.success;
     } else {
       if (response.statusCode == ExceptionHandle.not_found) {
         /// 错误数据格式化后，按照成功数据返回

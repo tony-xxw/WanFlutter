@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wanflutter/widgets/search_bar.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -8,8 +9,10 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text("首页"),
+    return Scaffold(
+      appBar: SearchBar(
+        hintText: "搜索关键词以空格形式隔开",
+      ),
     );
   }
 }
