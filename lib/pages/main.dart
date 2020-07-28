@@ -10,9 +10,7 @@ import 'package:wanflutter/res/colours.dart';
 import 'package:wanflutter/util/dimens.dart';
 import 'package:wanflutter/util/theme_utils.dart';
 import 'package:wanflutter/widgets/load_image.dart';
-import 'package:wanflutter/widgets/search_bar.dart';
 
-import '../app.dart';
 import 'navigation.dart';
 
 class Main extends StatefulWidget {
@@ -50,21 +48,21 @@ class _Main extends State<Main> {
               width: _imageSize, color: Colours.selected_nav_item_color)
         ],
         [
-          LoadAssetImage('main/ic_home',
+          LoadAssetImage('main/ic_nav',
               width: _imageSize, color: Colours.nav_item_color),
-          LoadAssetImage('main/ic_home_selected',
+          LoadAssetImage('main/ic_nav_selected',
               width: _imageSize, color: Colours.selected_nav_item_color)
         ],
         [
-          LoadAssetImage('main/ic_home',
+          LoadAssetImage('main/ic_map',
               width: _imageSize, color: Colours.nav_item_color),
-          LoadAssetImage('main/ic_home_selected',
+          LoadAssetImage('main/ic_map_selected',
               width: _imageSize, color: Colours.selected_nav_item_color)
         ],
         [
-          LoadAssetImage('main/ic_home',
+          LoadAssetImage('main/ic_profile',
               width: _imageSize, color: Colours.nav_item_color),
-          LoadAssetImage('main/ic_home_selected',
+          LoadAssetImage('main/ic_profile_selected',
               width: _imageSize, color: Colours.selected_nav_item_color)
         ]
       ];
@@ -110,7 +108,7 @@ class _Main extends State<Main> {
         selectedFontSize: Dimens.font_sp10,
         unselectedFontSize: Dimens.font_sp10,
         selectedItemColor: Theme.of(context).primaryColor,
-        unselectedItemColor: Colours.nav_item_color,
+        unselectedItemColor: Colours.dark_text,
         onTap: (index) {
           if (_indexNum != index) {
             setState(() {

@@ -3,6 +3,7 @@ import 'package:fluro/fluro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:wanflutter/res/colours.dart';
 
 import 'package:wanflutter/routers/application.dart';
 import 'package:wanflutter/routers/routers.dart';
@@ -41,8 +42,8 @@ class _App extends State<App> {
       onGenerateRoute: Application.router.generator,
       theme: ThemeData(
           brightness: Brightness.light,
-
           fontFamily: 'Georgia',
+          primaryColor: Colours.nav_item_color,
           textTheme: TextTheme(
               headline1: TextStyle(fontSize: 72.0, fontWeight: FontWeight.bold),
               headline6: TextStyle(fontSize: 36.0, fontStyle: FontStyle.italic),

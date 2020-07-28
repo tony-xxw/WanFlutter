@@ -86,4 +86,5 @@ flutter:
   # see https://flutter.dev/custom-fonts/#from-packages
   assets:
     - assets/images/common/
+    - assets/images/main/
 

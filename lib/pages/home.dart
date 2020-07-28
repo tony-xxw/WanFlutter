@@ -15,7 +15,6 @@ class _HomeState extends State<Home> {
           rightImg: 'common/ic_menu',
         ),
         body: Container(
-          color: Colors.red,
           padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
         ));
   }
