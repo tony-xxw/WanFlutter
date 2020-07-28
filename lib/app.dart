@@ -2,9 +2,11 @@ import 'package:dio/dio.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:wanflutter/routers/application.dart';
 import 'package:wanflutter/routers/routers.dart';
+import 'package:wanflutter/util/device_utils.dart';
 
 import 'common/common.dart';
 import 'net/dio_utils.dart';
@@ -12,6 +14,12 @@ import 'net/interceptor.dart';
 
 void main() {
   runApp(App());
+
+  if (Device.isAndroid) {
+    final SystemUiOverlayStyle systemUiOverlayStyle =
+        SystemUiOverlayStyle(statusBarColor: Colors.transparent);
+    SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
+  }
 }
 
 const defaultTitle = "WanAndroid";
@@ -33,8 +41,7 @@ class _App extends State<App> {
       onGenerateRoute: Application.router.generator,
       theme: ThemeData(
           brightness: Brightness.light,
-          primaryColor: Colors.lightBlue[800],
-          accentColor: Colors.cyan[600],
+
           fontFamily: 'Georgia',
           textTheme: TextTheme(
               headline1: TextStyle(fontSize: 72.0, fontWeight: FontWeight.bold),

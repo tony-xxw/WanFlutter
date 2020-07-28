@@ -3,15 +3,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:wanflutter/res/colours.dart';
+import 'package:wanflutter/util/device_utils.dart';
 import 'package:wanflutter/util/theme_utils.dart';
 import 'package:wanflutter/widgets/load_image.dart';
 
 class SearchBar extends StatefulWidget implements PreferredSizeWidget {
   final String hintText;
   final String backImg;
+  final String rightImg;
   final Function onPressed;
 
-  SearchBar({Key key, this.hintText = '', this.backImg = "", this.onPressed})
+  SearchBar(
+      {Key key,
+      this.hintText = '',
+      this.backImg = "",
+      this.rightImg = '',
+      this.onPressed})
       : super(key: key);
 
   @override
@@ -38,6 +45,7 @@ class _SearchBarState extends State<SearchBar> {
     final Color iconColor =
         isDark ? Colours.dark_text_gray : Colours.text_gray_c;
     print("isDark " + isDark.toString());
+
     Widget back = Semantics(
       label: '返回',
       child: SizedBox(
@@ -61,10 +69,33 @@ class _SearchBarState extends State<SearchBar> {
       ),
     );
 
+    Widget right = Semantics(
+      label: 'right',
+      child: SizedBox(
+        width: 48.0,
+        height: 48.0,
+        child: InkWell(
+          onTap: () {
+            _focus.unfocus();
+          },
+          child: Padding(
+            key: const Key("right"),
+            padding: const EdgeInsets.all(12.0),
+            child: LoadAssetImage(
+              widget.rightImg,
+              width: 36.0,
+              height: 36.0,
+              color: isDark ? Colours.dark_text : Colours.text,
+            ),
+          ),
+        ),
+      ),
+    );
+
     Widget textField = Expanded(
       child: Container(
+        margin: const EdgeInsets.only(left: 14.0),
         height: 44.0,
-        margin: EdgeInsets.symmetric(vertical: 0, horizontal: 12),
         decoration: BoxDecoration(
             color: isDark ? Colours.dark_material_bg : Colours.search_bg,
             borderRadius: BorderRadius.circular(20)),
@@ -80,28 +111,26 @@ class _SearchBarState extends State<SearchBar> {
             widget.onPressed(val);
           },
           decoration: InputDecoration(
-              contentPadding: const EdgeInsets.only(
-                  top: 10.0, left: -8.0, right: -16.0, bottom: 14.0),
               border: InputBorder.none,
               icon: Padding(
-                  padding:
-                      const EdgeInsets.only(top: 8.0, bottom: 8.0, left: 8.0),
+                  padding: const EdgeInsets.only(
+                      top: 8.0, bottom: 8.0, left: 20.0, right: 0.0),
                   child: LoadAssetImage(
-                    "order/order_search",
+                    "common/ic_search",
                     width: 20,
                     height: 20,
                     color: iconColor,
                   )),
               hintText: widget.hintText,
+              hintStyle: TextStyle(color: Colours.hint_text),
               suffixIcon: GestureDetector(
                 child: Semantics(
                   label: "清空",
                   child: Padding(
-                    padding: EdgeInsets.only(left: 16.0, top: 8.0, bottom: 8.0),
+                    padding:
+                        EdgeInsets.only(top: 12.0, bottom: 12.0, right: 20.0),
                     child: LoadAssetImage(
-                      'order/order_delete',
-                      width: 20,
-                      height: 20,
+                      'common/ic_delete',
                       color: iconColor,
                     ),
                   ),
@@ -123,7 +152,7 @@ class _SearchBarState extends State<SearchBar> {
         child: SafeArea(
           child: Container(
             child: Row(
-              children: <Widget>[textField],
+              children: <Widget>[textField, right],
             ),
           ),
         ),

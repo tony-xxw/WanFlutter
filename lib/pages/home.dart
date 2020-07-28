@@ -10,9 +10,13 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: SearchBar(
-        hintText: "搜索关键词以空格形式隔开",
-      ),
-    );
+        appBar: SearchBar(
+          hintText: "搜索关键词以空格形式隔开",
+          rightImg: 'common/ic_menu',
+        ),
+        body: Container(
+          color: Colors.red,
+          padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+        ));
   }
 }
