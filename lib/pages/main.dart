@@ -29,14 +29,6 @@ class _Main extends State<Main> {
 
   static const _imageSize = 25.0;
 
-  @override
-  void initState() {
-    super.initState();
-//    DioUtils.instance.dio
-//        .get("article/list/1/json")
-//        .then((response) => {print("response" + response.toString())});
-//    testJson();
-  }
 
   List<BottomNavigationBarItem> _buildDarkBottomNavigationBarItem() {
     if (_list == null) {
