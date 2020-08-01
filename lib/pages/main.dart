@@ -32,10 +32,10 @@ class _Main extends State<Main> {
   @override
   void initState() {
     super.initState();
-    DioUtils.instance.dio
-        .get("article/list/1/json")
-        .then((response) => {print("response" + response.toString())});
-    testJson();
+//    DioUtils.instance.dio
+//        .get("article/list/1/json")
+//        .then((response) => {print("response" + response.toString())});
+//    testJson();
   }
 
   List<BottomNavigationBarItem> _buildDarkBottomNavigationBarItem() {

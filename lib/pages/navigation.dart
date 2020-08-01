@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class Navigation extends StatefulWidget {
   @override
@@ -9,9 +10,7 @@ class _Navigation extends State<Navigation> {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Column(
-        children: <Widget>[Text("导航")],
-      ),
+      child: Column(),
     );
   }
 }
