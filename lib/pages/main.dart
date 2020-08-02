@@ -13,6 +13,7 @@ import 'package:wanflutter/widgets/load_image.dart';
 
 import 'navigation.dart';
 
+/// 首页
 class Main extends StatefulWidget {
   @override
   _Main createState() => _Main();
