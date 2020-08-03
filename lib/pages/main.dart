@@ -3,8 +3,8 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:wanflutter/net/dio_utils.dart';
-import 'package:wanflutter/pages/home.dart';
-import 'package:wanflutter/pages/profile.dart';
+import 'file:///D:/GitWorkspace/WanFlutter/lib/pages/home/home.dart';
+import 'file:///D:/GitWorkspace/WanFlutter/lib/pages/mine/profile.dart';
 import 'package:wanflutter/pages/system.dart';
 import 'package:wanflutter/res/colours.dart';
 import 'package:wanflutter/util/dimens.dart';
@@ -29,7 +29,6 @@ class _Main extends State<Main> {
   List<BottomNavigationBarItem> _listDark;
 
   static const _imageSize = 25.0;
-
 
   List<BottomNavigationBarItem> _buildDarkBottomNavigationBarItem() {
     if (_list == null) {
@@ -91,6 +90,7 @@ class _Main extends State<Main> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: _getPageWidth(_indexNum),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: ThemeUtils.getBackgroundColors(context),
         items: _buildDarkBottomNavigationBarItem(),

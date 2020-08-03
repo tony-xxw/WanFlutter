@@ -1,6 +1,8 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:wanflutter/net/dio_utils.dart';
+import 'package:wanflutter/pages/home/blog_page.dart';
+import 'package:wanflutter/pages/home/project_page.dart';
 import 'package:wanflutter/res/colours.dart';
 import 'package:wanflutter/widgets/search_bar.dart';
 
@@ -10,8 +12,11 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
-  List<String> _list = List();
+  final List<Widget> _listTabView = [BlogPage(), ProjectPage()];
+
   TabController _tabController;
+  final PageController _pageController = PageController(initialPage: 0);
+  int currentIndex = 0;
 
   @override
   void initState() {
@@ -22,6 +27,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
 //      print("111"+response.data.datas[0].title)
 //        });
     _tabController = TabController(vsync: this, length: 2);
+
     super.initState();
   }
 
@@ -39,31 +45,45 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
               controller: _tabController,
               indicatorSize: TabBarIndicatorSize.label,
               indicatorColor: Colors.amberAccent,
+              labelColor: Colors.amberAccent,
+              unselectedLabelColor: Colours.dark_text,
               dragStartBehavior: DragStartBehavior.start,
+              onTap: (index) {
+                setState(() {
+                  currentIndex = index;
+                });
+                _pageController.jumpToPage(index);
+              },
               tabs: <Widget>[
-                Text(
-                  "热门",
-                  style: TextStyle(color: Colours.nav_item_color),
+                Padding(
+                  child: Text(
+                    "热门博客",
+                    style: TextStyle(fontSize: currentIndex == 0 ? 18.0 : 14.0),
+                  ),
+                  padding: EdgeInsets.symmetric(vertical: 8.0),
                 ),
-                Text(
-                  "热门项目",
-                  style: TextStyle(color: Colours.dark_text),
+                Padding(
+                  child: Text(
+                    "热门项目",
+                    style: TextStyle(fontSize: currentIndex == 1 ? 18.0 : 14.0),
+                  ),
+                  padding: EdgeInsets.symmetric(vertical: 8.0),
                 )
               ],
             ),
-            Flexible(
-              child: ListView.builder(
-                itemBuilder: (_, index) {
-                  return Center(
-                    child: Text("1111"),
-                  );
-                },
-                itemExtent: 48.0,
-                itemCount: 4,
-              ),
+            Expanded(
+              flex: 1,
+              child: PageView.builder(
+                  onPageChanged: _pageChange,
+                  controller: _pageController,
+                  itemBuilder: (_, index) => _listTabView[index]),
             )
           ],
         ));
+  }
+
+  void _pageChange(index) {
+    _tabController.animateTo(index);
   }
 }
 
