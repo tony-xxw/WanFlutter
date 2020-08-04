@@ -40,6 +40,8 @@ dependencies:
   fluro: ^1.6.3
   # 状态管理 https://github.com/rrousselGit/provider
   provider: ^4.3.1
+  # 轮播图
+  carousel_slider: ^2.2.1
 
 dev_dependencies:
   flutter_test:

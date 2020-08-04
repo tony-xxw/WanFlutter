@@ -18,8 +18,11 @@ class _BlogPageState extends State<BlogPage> {
   }
 
   Widget buildBlogItem() {
-    return Center(
-      child: Text("222"),
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 15.0),
+      child: Flex(
+        children: <Widget>[],
+      ),
     );
   }
 }
