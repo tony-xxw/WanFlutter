@@ -2,15 +2,14 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:wanflutter/net/dio_utils.dart';
-import 'file:///D:/GitWorkspace/WanFlutter/lib/pages/home/home.dart';
-import 'file:///D:/GitWorkspace/WanFlutter/lib/pages/mine/profile.dart';
 import 'package:wanflutter/pages/system.dart';
 import 'package:wanflutter/res/colours.dart';
 import 'package:wanflutter/util/dimens.dart';
 import 'package:wanflutter/util/theme_utils.dart';
 import 'package:wanflutter/widgets/load_image.dart';
 
+import 'home/home.dart';
+import 'mine/profile.dart';
 import 'navigation.dart';
 
 /// 首页
@@ -90,6 +89,10 @@ class _Main extends State<Main> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: _getPageWidth(_indexNum),
+      floatingActionButton: FloatingActionButton(
+        onPressed: null,
+        child: Icon(Icons.add),
+      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: ThemeUtils.getBackgroundColors(context),

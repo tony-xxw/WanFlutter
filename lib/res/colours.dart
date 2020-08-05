@@ -7,6 +7,7 @@ class Colours {
 
   static const Color dark_text_gray = Color(0xFF666666);
   static const Color text_gray_c = Color(0xFFcccccc);
+  static const Color diver = Color(0xffF5F5F5);
 
   static const Color dark_material_bg = Color(0xFF303233);
   static const Color bg_gray = Color(0xFF35BCDC);
