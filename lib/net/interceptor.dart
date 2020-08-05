@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:dio/dio.dart';
 import 'package:flustars/flustars.dart';
@@ -74,7 +75,7 @@ class AdapterInterceptor extends Interceptor {
 
   static const String _kFailureFormat = '{\"code\":%d,\"message\":\"%s\"}';
   static const String _kSuccessFormat =
-      '{\"code\":0,\"data\":%s,\"message\":\"\"}';
+      '{\"errorCode\":0,\"data\":%s,\"errorMsg\":\"\"}';
 
   @override
   Future onResponse(Response response) {

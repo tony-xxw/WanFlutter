@@ -1,4 +1,9 @@
+import 'dart:convert' as convert;
+
 import 'package:flutter/material.dart';
+import 'package:wanflutter/entity/blogs.dart';
+import 'package:wanflutter/net/dio_utils.dart';
+import 'package:wanflutter/res/colours.dart';
 
 class BlogPage extends StatefulWidget {
   @override
@@ -6,14 +11,43 @@ class BlogPage extends StatefulWidget {
 }
 
 class _BlogPageState extends State<BlogPage> {
+  var mList = List<Datas>();
+
+  @override
+  void initState() {
+    DioUtils.instance.dio.get("article/list/1/json").then((response) => {
+//          setState(() {
+//
+//          })
+
+          print("1111" + convert.jsonDecode('{\"errorCode\":"0",\"data\":"11",\"errorMsg\":\"\"}'))
+//      mList = Blogs
+//          .fromJson(convert.jsonDecode(response.data.toString()))
+//          .data
+//          .datas
+        });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
       itemBuilder: (_, index) {
-        return buildBlogItem();
+        return buildBlogNetItem(index);
       },
       itemExtent: 110.0,
       itemCount: 2,
+    );
+  }
+
+  Widget buildBlogNetItem(index) {
+//    var blog = mList[index];
+
+//    print(blog.toString());
+    return Container(
+      decoration: BoxDecoration(
+          border: Border(bottom: BorderSide(width: 1, color: Colours.bg_gray))),
+      child: Text("111"),
     );
   }
 
