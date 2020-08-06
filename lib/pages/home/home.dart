@@ -3,6 +3,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:wanflutter/pages/home/blog_page.dart';
 import 'package:wanflutter/pages/home/project_page.dart';
+import 'package:wanflutter/provider/provider_widget.dart';
 import 'package:wanflutter/res/colours.dart';
 import 'package:wanflutter/widgets/search_bar.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -32,64 +33,68 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     super.initState();
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: SearchBar(
-          rightImg: 'common/ic_menu',
-        ),
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            CarouselSlider(
-              options: CarouselOptions(
-                autoPlay: true,
-                aspectRatio: 2.0,
-                enlargeCenterPage: true,
-              ),
-              items: itemBuilder(),
-            ),
-            TabBar(
-              isScrollable: true,
-              controller: _tabController,
-              indicatorSize: TabBarIndicatorSize.label,
-              indicatorColor: Colors.amberAccent,
-              labelColor: Colors.amberAccent,
-              unselectedLabelColor: Colours.dark_text,
-              dragStartBehavior: DragStartBehavior.start,
-              onTap: (index) {
-                setState(() {
-                  currentIndex = index;
-                });
-                _pageController.jumpToPage(index);
-              },
-              tabs: <Widget>[
-                Padding(
-                  child: Text(
-                    "热门博客",
-                    style: TextStyle(fontSize: currentIndex == 0 ? 18.0 : 14.0),
-                  ),
-                  padding: EdgeInsets.symmetric(vertical: 8.0),
-                ),
-                Padding(
-                  child: Text(
-                    "热门项目",
-                    style: TextStyle(fontSize: currentIndex == 1 ? 18.0 : 14.0),
-                  ),
-                  padding: EdgeInsets.symmetric(vertical: 8.0),
-                )
-              ],
-            ),
-            Expanded(
-              flex: 1,
-              child: PageView.builder(
-                  onPageChanged: _pageChange,
-                  controller: _pageController,
-                  itemBuilder: (_, index) => _listTabView[index]),
-            )
-          ],
-        ));
-  }
+
+
+
+//
+//  @override
+//  Widget build(BuildContext context) {
+//    return Scaffold(
+//        appBar: SearchBar(
+//          rightImg: 'common/ic_menu',
+//        ),
+//        body: Column(
+//          crossAxisAlignment: CrossAxisAlignment.start,
+//          children: <Widget>[
+//            CarouselSlider(
+//              options: CarouselOptions(
+//                autoPlay: true,
+//                aspectRatio: 2.0,
+//                enlargeCenterPage: true,
+//              ),
+//              items: itemBuilder(),
+//            ),
+//            TabBar(
+//              isScrollable: true,
+//              controller: _tabController,
+//              indicatorSize: TabBarIndicatorSize.label,
+//              indicatorColor: Colors.amberAccent,
+//              labelColor: Colors.amberAccent,
+//              unselectedLabelColor: Colours.dark_text,
+//              dragStartBehavior: DragStartBehavior.start,
+//              onTap: (index) {
+//                setState(() {
+//                  currentIndex = index;
+//                });
+//                _pageController.jumpToPage(index);
+//              },
+//              tabs: <Widget>[
+//                Padding(
+//                  child: Text(
+//                    "热门博客",
+//                    style: TextStyle(fontSize: currentIndex == 0 ? 18.0 : 14.0),
+//                  ),
+//                  padding: EdgeInsets.symmetric(vertical: 8.0),
+//                ),
+//                Padding(
+//                  child: Text(
+//                    "热门项目",
+//                    style: TextStyle(fontSize: currentIndex == 1 ? 18.0 : 14.0),
+//                  ),
+//                  padding: EdgeInsets.symmetric(vertical: 8.0),
+//                )
+//              ],
+//            ),
+//            Expanded(
+//              flex: 1,
+//              child: PageView.builder(
+//                  onPageChanged: _pageChange,
+//                  controller: _pageController,
+//                  itemBuilder: (_, index) => _listTabView[index]),
+//            )
+//          ],
+//        ));
+//  }
 
   List<Widget> itemBuilder() {
     return imgList
@@ -137,6 +142,11 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
 
   void _pageChange(index) {
     _tabController.animateTo(index);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+
   }
 }
 

@@ -143,7 +143,7 @@ class AdapterInterceptor extends Interceptor {
         }
       }
     }
-    response.data = result;
+//    response.data = result;
     return response;
   }
 }

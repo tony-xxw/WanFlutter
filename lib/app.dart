@@ -32,7 +32,7 @@ class App extends StatefulWidget {
 
 class _App extends State<App> {
   _App() {
-    initDio();
+//    initDio();
     initRouter();
   }
 

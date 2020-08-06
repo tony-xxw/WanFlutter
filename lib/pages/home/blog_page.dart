@@ -1,8 +1,10 @@
 import 'dart:convert' as convert;
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:wanflutter/entity/blogs.dart';
 import 'package:wanflutter/net/dio_utils.dart';
+import 'package:wanflutter/net/net_manager_service.dart';
 import 'package:wanflutter/res/colours.dart';
 
 class BlogPage extends StatefulWidget {
@@ -15,17 +17,7 @@ class _BlogPageState extends State<BlogPage> {
 
   @override
   void initState() {
-    DioUtils.instance.dio.get("article/list/1/json").then((response) => {
-//          setState(() {
-//
-//          })
-
-          print("1111" + convert.jsonDecode('{\"errorCode\":"0",\"data\":"11",\"errorMsg\":\"\"}'))
-//      mList = Blogs
-//          .fromJson(convert.jsonDecode(response.data.toString()))
-//          .data
-//          .datas
-        });
+    NetMangerService.fetchArticles(1);
     super.initState();
   }
 
@@ -41,13 +33,10 @@ class _BlogPageState extends State<BlogPage> {
   }
 
   Widget buildBlogNetItem(index) {
-//    var blog = mList[index];
-
-//    print(blog.toString());
     return Container(
       decoration: BoxDecoration(
           border: Border(bottom: BorderSide(width: 1, color: Colours.bg_gray))),
-      child: Text("111"),
+      child: Text(mList.isEmpty ? "" : mList[index].chapterName),
     );
   }
 

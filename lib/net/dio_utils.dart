@@ -49,6 +49,7 @@ class DioUtils {
     BaseOptions _options = BaseOptions(
         baseUrl: _baseUrl,
         connectTimeout: _connectTimeout,
+        responseType: ResponseType.json,
         receiveTimeout: _receiveTimeout,
         sendTimeout: _sendTimeout);
 
@@ -71,3 +72,6 @@ class DioUtils {
 
   Dio get dio => _dio;
 }
+
+
+
