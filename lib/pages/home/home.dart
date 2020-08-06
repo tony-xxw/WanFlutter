@@ -27,12 +27,6 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
 
   @override
   void initState() {
-//    DioUtils.instance.dio.get("article/list/1/json").then((response) => {
-////          setState(() {
-////            _list = response.data.datas;
-////          })
-//      print("111"+response.data.datas[0].title)
-//        });
     _tabController = TabController(vsync: this, length: 2);
 
     super.initState();
