@@ -1,8 +1,6 @@
-import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio/dio.dart';
-import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 import 'package:flutter/material.dart';
-import 'package:wanflutter/config/storage_manager.dart';
+import 'package:wanflutter/net/interceptor.dart';
 
 import 'base_net.dart';
 
@@ -12,9 +10,9 @@ class NetService extends BaseService {
   @override
   void init() {
     options.baseUrl = 'https://www.wanandroid.com/';
-    interceptors
-      ..add(ApiInterceptor());
-      // cookie持久化 异步
+    interceptors..add(LoggingInterceptor())..add(ApiInterceptor());
+
+    // cookie持久化 异步
 //      ..add(CookieManager(
 //          PersistCookieJar(dir: StorageManager.temporaryDirectory.path)));
   }

@@ -1,6 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:wanflutter/model/home_model.dart';
 import 'package:wanflutter/pages/home/blog_page.dart';
 import 'package:wanflutter/pages/home/project_page.dart';
 import 'package:wanflutter/provider/provider_widget.dart';
@@ -29,77 +31,14 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     _tabController = TabController(vsync: this, length: 2);
-
     super.initState();
   }
 
-
-
-
-//
-//  @override
-//  Widget build(BuildContext context) {
-//    return Scaffold(
-//        appBar: SearchBar(
-//          rightImg: 'common/ic_menu',
-//        ),
-//        body: Column(
-//          crossAxisAlignment: CrossAxisAlignment.start,
-//          children: <Widget>[
-//            CarouselSlider(
-//              options: CarouselOptions(
-//                autoPlay: true,
-//                aspectRatio: 2.0,
-//                enlargeCenterPage: true,
-//              ),
-//              items: itemBuilder(),
-//            ),
-//            TabBar(
-//              isScrollable: true,
-//              controller: _tabController,
-//              indicatorSize: TabBarIndicatorSize.label,
-//              indicatorColor: Colors.amberAccent,
-//              labelColor: Colors.amberAccent,
-//              unselectedLabelColor: Colours.dark_text,
-//              dragStartBehavior: DragStartBehavior.start,
-//              onTap: (index) {
-//                setState(() {
-//                  currentIndex = index;
-//                });
-//                _pageController.jumpToPage(index);
-//              },
-//              tabs: <Widget>[
-//                Padding(
-//                  child: Text(
-//                    "热门博客",
-//                    style: TextStyle(fontSize: currentIndex == 0 ? 18.0 : 14.0),
-//                  ),
-//                  padding: EdgeInsets.symmetric(vertical: 8.0),
-//                ),
-//                Padding(
-//                  child: Text(
-//                    "热门项目",
-//                    style: TextStyle(fontSize: currentIndex == 1 ? 18.0 : 14.0),
-//                  ),
-//                  padding: EdgeInsets.symmetric(vertical: 8.0),
-//                )
-//              ],
-//            ),
-//            Expanded(
-//              flex: 1,
-//              child: PageView.builder(
-//                  onPageChanged: _pageChange,
-//                  controller: _pageController,
-//                  itemBuilder: (_, index) => _listTabView[index]),
-//            )
-//          ],
-//        ));
-//  }
-
-  List<Widget> itemBuilder() {
+  List<Widget> itemBuilder(defaultHeight) {
     return imgList
         .map((item) => Container(
               child: Container(
+                height: defaultHeight,
                 margin: EdgeInsets.all(5.0),
                 child: ClipRRect(
                     borderRadius: BorderRadius.all(Radius.circular(5.0)),
@@ -146,14 +85,80 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-
-  }
-}
-
-class _TabItem extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
+    var bannerHeight = MediaQuery.of(context).size.width * 5 / 11;
+    return ProviderWidget<HomeModel>(
+        model: HomeModel(),
+        onModelReady: (homeModel) {
+          homeModel.initData();
+        },
+        builder: (context, homeModal, child) {
+          return Scaffold(
+              appBar: SearchBar(
+                rightImg: 'common/ic_menu',
+              ),
+              body: SmartRefresher(
+                controller: homeModal.refreshController,
+                enablePullUp: homeModal.list.isNotEmpty,
+                enablePullDown: homeModal.list.isNotEmpty,
+                onLoading: homeModal.loadMore,
+                onRefresh: () async {
+                  await homeModal.refresh();
+                  homeModal.showErrorMessage(context);
+                },
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    CarouselSlider(
+                      options: CarouselOptions(
+                        autoPlay: true,
+                        aspectRatio: 2.0,
+                        enlargeCenterPage: true,
+                      ),
+                      items: itemBuilder(bannerHeight),
+                    ),
+                    TabBar(
+                      isScrollable: true,
+                      controller: _tabController,
+                      indicatorSize: TabBarIndicatorSize.label,
+                      indicatorColor: Colors.amberAccent,
+                      labelColor: Colors.amberAccent,
+                      unselectedLabelColor: Colours.dark_text,
+                      dragStartBehavior: DragStartBehavior.start,
+                      onTap: (index) {
+                        setState(() {
+                          currentIndex = index;
+                        });
+                        _pageController.jumpToPage(index);
+                      },
+                      tabs: <Widget>[
+                        Padding(
+                          child: Text(
+                            "热门博客",
+                            style: TextStyle(
+                                fontSize: currentIndex == 0 ? 18.0 : 14.0),
+                          ),
+                          padding: EdgeInsets.symmetric(vertical: 8.0),
+                        ),
+                        Padding(
+                          child: Text(
+                            "热门项目",
+                            style: TextStyle(
+                                fontSize: currentIndex == 1 ? 18.0 : 14.0),
+                          ),
+                          padding: EdgeInsets.symmetric(vertical: 8.0),
+                        )
+                      ],
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: PageView.builder(
+                          onPageChanged: _pageChange,
+                          controller: _pageController,
+                          itemBuilder: (_, index) => _listTabView[index]),
+                    )
+                  ],
+                ),
+              ));
+        });
   }
 }

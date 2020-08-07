@@ -1,17 +1,13 @@
-import 'package:dio/dio.dart';
+import 'package:common_utils/common_utils.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:wanflutter/res/colours.dart';
-
 import 'package:wanflutter/routers/application.dart';
 import 'package:wanflutter/routers/routers.dart';
 import 'package:wanflutter/util/device_utils.dart';
-
-import 'common/common.dart';
-import 'net/dio_utils.dart';
-import 'net/interceptor.dart';
+import 'package:wanflutter/util/platform_utils.dart';
 
 void main() {
   runApp(App());
@@ -32,7 +28,7 @@ class App extends StatefulWidget {
 
 class _App extends State<App> {
   _App() {
-//    initDio();
+    LogUtil.init(tag: "XXW", isDebug: !inProduction);
     initRouter();
   }
 
@@ -52,65 +48,10 @@ class _App extends State<App> {
     );
   }
 
-  void initDio() {
-    final List<Interceptor> interceptors = [];
-
-    /// 统一添加身份验证请求头
-    interceptors.add(AuthInterceptor());
-
-    /// 打印Log(生产模式去除)
-    if (!Constant.inProduction) {
-      interceptors.add(LoggingInterceptor());
-    }
-
-    /// 适配数据(根据自己的数据结构，可自行选择添加)
-    interceptors.add(AdapterInterceptor());
-    setInitDio(
-      interceptors: interceptors,
-    );
-  }
-
   void initRouter() {
     Router router = Router();
     Routers.configureRoute(router);
     Application.router = router;
-  }
-}
-
-class MenuDraw extends StatelessWidget {
-  const MenuDraw();
-
-  @override
-  Widget build(BuildContext context) {
-    return Drawer(
-      child: MediaQuery.removePadding(
-          context: context,
-          child: ListView(
-            children: <Widget>[
-              ListTile(
-                leading: Icon(Icons.subscriptions),
-                title: Text("公众号"),
-                onTap: () {
-                  print("公众号");
-                },
-              ),
-              ListTile(
-                leading: Icon(Icons.subscriptions),
-                title: Text("公众号"),
-                onTap: () {
-                  print("公众号");
-                },
-              ),
-              ListTile(
-                leading: Icon(Icons.subscriptions),
-                title: Text("公众号"),
-                onTap: () {
-                  print("公众号");
-                },
-              )
-            ],
-          )),
-    );
   }
 }
 

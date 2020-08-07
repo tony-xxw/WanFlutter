@@ -1,7 +1,6 @@
-
-
 import 'dart:io';
 
+import 'package:common_utils/common_utils.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:oktoast/oktoast.dart';
@@ -22,7 +21,7 @@ class ViewStateModel with ChangeNotifier {
   /// FooModel():super(viewState:ViewState.busy);
   ViewStateModel({ViewState viewState})
       : _viewState = viewState ?? ViewState.idle {
-    debugPrint('ViewStateModel---constructor--->$runtimeType');
+    LogUtil.v('ViewStateModel---constructor--->$runtimeType');
   }
 
   /// ViewState
@@ -139,7 +138,7 @@ class ViewStateModel with ChangeNotifier {
   @override
   void dispose() {
     _disposed = true;
-    debugPrint('view_state_model dispose -->$runtimeType');
+    LogUtil.v('view_state_model dispose -->$runtimeType');
     super.dispose();
   }
 }
@@ -147,7 +146,7 @@ class ViewStateModel with ChangeNotifier {
 /// [e]为错误类型 :可能为 Error , Exception ,String
 /// [s]为堆栈信息
 printErrorStack(e, s) {
-  debugPrint('''
+  LogUtil.v('''
 <-----↓↓↓↓↓↓↓↓↓↓-----error-----↓↓↓↓↓↓↓↓↓↓----->
 $e
 <-----↑↑↑↑↑↑↑↑↑↑-----error-----↑↑↑↑↑↑↑↑↑↑----->''');

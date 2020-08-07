@@ -1,3 +1,4 @@
+import 'package:common_utils/common_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -27,7 +28,7 @@ abstract class ViewStateRefreshListModel<T> extends ViewStateListModel<T> {
   Future<List<T>> refresh({bool init = false}) async {
     try {
       _currentPageNum = pageNumFirst;
-      var data = await loadData(pageNum: pageNumFirst);
+      var data = await loadData(page: pageNumFirst);
       if (data.isEmpty) {
         refreshController.refreshCompleted(resetFooterState: true);
         list.clear();
@@ -60,7 +61,7 @@ abstract class ViewStateRefreshListModel<T> extends ViewStateListModel<T> {
   /// 上拉加载更多
   Future<List<T>> loadMore() async {
     try {
-      var data = await loadData(pageNum: ++_currentPageNum);
+      var data = await loadData(page: ++_currentPageNum);
       if (data.isEmpty) {
         _currentPageNum--;
         refreshController.loadNoData();
@@ -78,14 +79,14 @@ abstract class ViewStateRefreshListModel<T> extends ViewStateListModel<T> {
     } catch (e, s) {
       _currentPageNum--;
       refreshController.loadFailed();
-      debugPrint('error--->\n' + e.toString());
-      debugPrint('statck--->\n' + s.toString());
+      LogUtil.v('error--->\n' + e.toString());
+      LogUtil.v('statck--->\n' + s.toString());
       return null;
     }
   }
 
   // 加载数据
-  Future<List<T>> loadData({int pageNum});
+  Future<List<T>> loadData({int page});
 
   @override
   void dispose() {

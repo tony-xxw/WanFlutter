@@ -1,10 +1,6 @@
-import 'dart:convert' as convert;
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:wanflutter/entity/blogs.dart';
-import 'package:wanflutter/net/dio_utils.dart';
-import 'package:wanflutter/net/net_manager_service.dart';
+import 'package:provider/provider.dart';
+import 'package:wanflutter/model/home_model.dart';
 import 'package:wanflutter/res/colours.dart';
 
 class BlogPage extends StatefulWidget {
@@ -13,30 +9,32 @@ class BlogPage extends StatefulWidget {
 }
 
 class _BlogPageState extends State<BlogPage> {
-  var mList = List<Datas>();
-
   @override
   void initState() {
-    NetMangerService.fetchArticles(1);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    HomeModel homeModel = Provider.of(context);
+    debugPrint("homeModel," + homeModel.list[0].toString());
     return ListView.builder(
-      itemBuilder: (_, index) {
-        return buildBlogNetItem(index);
+      itemBuilder: (
+        _,
+        index,
+      ) {
+        return buildBlogNetItem(homeModel.list[index]);
       },
       itemExtent: 110.0,
-      itemCount: 2,
+      itemCount: homeModel.list.length,
     );
   }
 
-  Widget buildBlogNetItem(index) {
+  Widget buildBlogNetItem(item) {
     return Container(
       decoration: BoxDecoration(
           border: Border(bottom: BorderSide(width: 1, color: Colours.bg_gray))),
-      child: Text(mList.isEmpty ? "" : mList[index].chapterName),
+      child: Text(item.chapterName),
     );
   }
 
