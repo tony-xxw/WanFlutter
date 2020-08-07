@@ -17,6 +17,11 @@ class _BlogPageState extends State<BlogPage> {
   @override
   Widget build(BuildContext context) {
     HomeModel homeModel = Provider.of(context);
+    if (homeModel.list.isEmpty) {
+      return Center(
+        child: Text("暂无数据"),
+      );
+    }
     debugPrint("homeModel," + homeModel.list[0].toString());
     return ListView.builder(
       itemBuilder: (
