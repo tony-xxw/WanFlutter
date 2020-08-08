@@ -3,12 +3,13 @@ import 'package:provider/provider.dart';
 import 'package:wanflutter/model/home_model.dart';
 import 'package:wanflutter/res/colours.dart';
 
-class BlogPage extends StatefulWidget {
+//文章列表
+class Article extends StatefulWidget {
   @override
-  _BlogPageState createState() => _BlogPageState();
+  _ArticleState createState() => _ArticleState();
 }
 
-class _BlogPageState extends State<BlogPage> {
+class _ArticleState extends State<Article> {
   @override
   void initState() {
     super.initState();
