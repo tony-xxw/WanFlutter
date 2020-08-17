@@ -1,5 +1,7 @@
+import 'package:common_utils/common_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:wanflutter/common/icons_custom.dart';
 import 'package:wanflutter/model/home_model.dart';
 import 'package:wanflutter/res/colours.dart';
 
@@ -11,19 +13,15 @@ class Article extends StatefulWidget {
 
 class _ArticleState extends State<Article> {
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     HomeModel homeModel = Provider.of(context);
+
     if (homeModel.list.isEmpty) {
       return Center(
         child: Text("暂无数据"),
       );
     }
-    debugPrint("homeModel," + homeModel.list[0].toString());
+
     return ListView.builder(
       itemBuilder: (
         _,
@@ -31,7 +29,6 @@ class _ArticleState extends State<Article> {
       ) {
         return buildBlogNetItem(homeModel.list[index]);
       },
-      itemExtent: 110.0,
       itemCount: homeModel.list.length,
     );
   }
@@ -39,51 +36,58 @@ class _ArticleState extends State<Article> {
   Widget buildBlogNetItem(item) {
     return Container(
       decoration: BoxDecoration(
-          border: Border(bottom: BorderSide(width: 1, color: Colours.bg_gray))),
-      child: Text(item.chapterName),
-    );
-  }
-
-  Widget buildBlogItem() {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 15.0),
-      child: Container(
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            ClipOval(
-              child: SizedBox(
-                width: 45.0,
-                height: 45.0,
-                child: Image(
-                  image: NetworkImage(
-                      'https://upload.jianshu.io/users/upload_avatars/3018771/a6cf120c-5efc-4ecd-8257-1bfafe48b0ed.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/240/h/240'),
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-            Expanded(
-              flex: 1,
-              child: Column(
-                children: <Widget>[
+          border: Border(
+              bottom: BorderSide(width: 0.3, color: Colours.text_gray_c))),
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
+        child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Expanded(
-                        flex: 1,
-                        child: Text("李现"),
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Icon(
+                        IconsCustom.icontouxiangnvhai_,
+                        color: Colours.text_gray_c,
                       ),
-                      Expanded(
-                        flex: 8,
-                        child: Text("Android高级开发工程师"),
+                      Container(
+                        margin: EdgeInsets.symmetric(horizontal: 8.0),
+                        child: Text(item.shareUser.toString().isNotEmpty
+                            ? item.shareUser
+                            : "鸿洋"),
                       )
+                    ],
+                  ),
+                ],
+              ),
+              SizedBox(height: 10),
+              Text(
+                item.title.toString().trim(),
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+              ),
+              SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("收藏"),
+                  Row(
+                    children: [
+                      Icon(
+                        IconsCustom.icon_category,
+                        color: Colours.bg_gray,
+                      ),
+                      Text("${item.superChapterName} / ${item.chapterName}")
                     ],
                   )
                 ],
-              ),
-            )
-          ],
-        ),
+              )
+            ]),
       ),
     );
   }

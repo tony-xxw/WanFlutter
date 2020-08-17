@@ -1,5 +1,3 @@
-//todo compute
-
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
@@ -74,7 +72,6 @@ class NotSuccessException implements Exception {
     return 'NotExpectedException{respData: $message}';
   }
 }
-
 
 /// 用于未登录等权限不够,需要跳转授权页面
 class UnAuthorizedException implements Exception {
