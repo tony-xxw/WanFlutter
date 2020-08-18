@@ -4,9 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:wanflutter/model/home_model.dart';
+import 'package:wanflutter/model/project_model.dart';
 import 'package:wanflutter/pages/home/article.dart';
+import 'package:wanflutter/pages/home/over_head.dart';
 import 'package:wanflutter/pages/home/project.dart';
-import 'package:wanflutter/provider/provider_widget.dart';
+import 'package:wanflutter/provider/base/provider_widget.dart';
 import 'package:wanflutter/res/colours.dart';
 import 'package:wanflutter/widgets/sticky_tab_bar.dart';
 
@@ -36,16 +38,15 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     var bannerHeight = MediaQuery.of(context).size.width * 5 / 11;
-    return ProviderWidget<HomeModel>(
-        model: HomeModel(),
-        onModelReady: (homeModel) {
+    return ProviderWidget2<HomeModel, ProjectModal>(
+        model1: HomeModel(),
+        model2: ProjectModal(),
+        onModelReady: (homeModel, projectModel) {
           homeModel.initData();
+          projectModel.initData();
         },
-        builder: (context, homeModal, child) {
+        builder: (context, homeModal, projectModel, child) {
           return Scaffold(
-//              appBar: SearchBar(
-//                rightImg: 'common/ic_menu',
-//              ),
               body: SmartRefresher(
                   controller: homeModal.refreshController,
                   enablePullUp: homeModal.list.isNotEmpty,
@@ -75,10 +76,10 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                               child: TabBar(
                             isScrollable: true,
                             controller: _tabController,
-                            indicatorSize: TabBarIndicatorSize.label,
-                            indicatorColor: Colors.amberAccent,
-                            labelColor: Colors.amberAccent,
-                            unselectedLabelColor: Colours.dark_text,
+                            indicatorSize: TabBarIndicatorSize.tab,
+                            indicatorColor: Colours.bg_blue,
+                            labelColor: Colours.bg_blue,
+                            unselectedLabelColor: Colours.bg_gray,
                             dragStartBehavior: DragStartBehavior.start,
                             onTap: (index) {
                               onTabChangeClick(index);
@@ -89,6 +90,8 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                                       text: _tabs[index],
                                     )),
                           ))),
+                      if (homeModal.articles.isNotEmpty && currentIndex == 0)
+                        OverHead(),
                       SliverFillRemaining(
                         child: TabBarView(
                           children: _listTabView,
@@ -105,13 +108,6 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
       currentIndex = index;
     });
     _pageController.jumpToPage(index);
-  }
-
-  List<Widget> fetchTabItem(tabs) {
-    return tabs.map((item) => Padding(
-        padding: EdgeInsets.symmetric(vertical: 8.0),
-        child: Text(item.chapterName,
-            style: TextStyle(fontSize: currentIndex == 1 ? 18.0 : 14.0))));
   }
 
   Widget fetchBannerView(BuildContext context) {

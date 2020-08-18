@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:wanflutter/generated/l10n.dart';
 import 'package:wanflutter/net/base_net.dart';
-import 'package:wanflutter/provider/view_state.dart';
+import 'package:wanflutter/provider/base/view_state.dart';
 
 class ViewStateModel with ChangeNotifier {
   /// 防止页面销毁后,异步任务才完成,导致报错

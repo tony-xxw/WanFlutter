@@ -3,11 +3,21 @@ import 'package:wanflutter/entity/banner.dart';
 import 'package:wanflutter/net/net_service.dart';
 
 class DioService {
-  // 最新波尔克
+  // 最新博客
   static Future fetchArticles(int page, {int cid}) async {
     await Future.delayed(Duration(seconds: 1)); //增加动效
     var response = await service.get('article/list/$page/json',
         queryParameters: (cid != null ? {'cid': cid} : null));
+    return response.data['datas']
+        .map<Article>((item) => Article.fromJson(item))
+        .toList();
+  }
+
+  // 最新项目
+  static Future fetchProject(int page) async {
+    await Future.delayed(Duration(seconds: 1)); //增加动效
+    var response = await service.get('article/listproject/$page/json');
+    print("fetchProject"+response.toString());
     return response.data['datas']
         .map<Article>((item) => Article.fromJson(item))
         .toList();

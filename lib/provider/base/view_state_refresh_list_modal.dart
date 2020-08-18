@@ -2,7 +2,7 @@ import 'package:common_utils/common_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:wanflutter/provider/view_state_list_modal.dart';
+import 'package:wanflutter/provider/base/view_state_list_modal.dart';
 
 /// 基于
 abstract class ViewStateRefreshListModel<T> extends ViewStateListModel<T> {

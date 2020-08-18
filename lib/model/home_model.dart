@@ -1,7 +1,7 @@
 import 'package:wanflutter/entity/articles.dart';
 import 'package:wanflutter/entity/banner.dart';
 import 'package:wanflutter/net/dio_service.dart';
-import 'package:wanflutter/provider/view_state_refresh_list_modal.dart';
+import 'package:wanflutter/provider/base/view_state_refresh_list_modal.dart';
 
 class HomeModel extends ViewStateRefreshListModel {
   List<Banner> _banner;

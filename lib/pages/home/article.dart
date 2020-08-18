@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:wanflutter/common/icons_custom.dart';
 import 'package:wanflutter/model/home_model.dart';
 import 'package:wanflutter/res/colours.dart';
+import 'package:wanflutter/widgets/load_image.dart';
 
 //文章列表
 class Article extends StatefulWidget {
@@ -22,22 +23,25 @@ class _ArticleState extends State<Article> {
       );
     }
 
-    return ListView.builder(
-      itemBuilder: (
-        _,
-        index,
-      ) {
-        return buildBlogNetItem(homeModel.list[index]);
-      },
-      itemCount: homeModel.list.length,
-    );
+    return MediaQuery.removePadding(
+        removeTop: true,
+        context: context,
+        child: ListView.builder(
+          itemBuilder: (
+            context,
+            index,
+          ) {
+            return buildBlogNetItem(homeModel.list[index]);
+          },
+          itemCount: homeModel.list.length,
+        ));
   }
 
   Widget buildBlogNetItem(item) {
     return Container(
       decoration: BoxDecoration(
-          border: Border(
-              bottom: BorderSide(width: 0.3, color: Colours.text_gray_c))),
+          border:
+              Border(bottom: BorderSide(width: 0.3, color: Colours.bg_gray))),
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
         child: Column(
@@ -51,9 +55,10 @@ class _ArticleState extends State<Article> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Icon(
-                        IconsCustom.icontouxiangnvhai_,
-                        color: Colours.text_gray_c,
+                      LoadAssetImage(
+                        "common/ic_head",
+                        width: 24,
+                        height: 24,
                       ),
                       Container(
                         margin: EdgeInsets.symmetric(horizontal: 8.0),
@@ -63,6 +68,8 @@ class _ArticleState extends State<Article> {
                       )
                     ],
                   ),
+                  Text(DateUtil.formatDateMs(item.shareDate,
+                      format: DateFormats.h_m))
                 ],
               ),
               SizedBox(height: 10),
@@ -70,19 +77,33 @@ class _ArticleState extends State<Article> {
                 item.title.toString().trim(),
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
+                style: TextStyle(fontSize: 14.0, color: Colours.bg_black),
               ),
               SizedBox(height: 10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("收藏"),
+                  Icon(
+                    IconsCustom.icon_collection,
+                    color: item.collect ? Colours.bg_blue : Colours.bg_gray,
+                    size: 18.0,
+                  ),
                   Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Icon(
                         IconsCustom.icon_category,
-                        color: Colours.bg_gray,
+                        color: Colours.bg_blue,
+                        size: 18.0,
                       ),
-                      Text("${item.superChapterName} / ${item.chapterName}")
+                      SizedBox(
+                        width: 10.0,
+                      ),
+                      Text(
+                        "${item.superChapterName} / ${item.chapterName}",
+                        style:
+                            TextStyle(fontSize: 12.0, color: Colours.bg_gray),
+                      )
                     ],
                   )
                 ],

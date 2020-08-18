@@ -43,7 +43,7 @@ class _SearchBarState extends State<SearchBar> {
   Widget build(BuildContext context) {
     final bool isDark = ThemeUtils.isDark((context));
     final Color iconColor =
-        isDark ? Colours.dark_text_gray : Colours.text_gray_c;
+        isDark ? Colours.dark_text_gray : Colours.bg_gray;
     print("isDark " + isDark.toString());
 
     Widget back = Semantics(

@@ -1,4 +1,4 @@
-import 'package:wanflutter/provider/view_state_model.dart';
+import 'package:wanflutter/provider/base/view_state_model.dart';
 
 /// 基于
 abstract class ViewStateListModel<T> extends ViewStateModel {
