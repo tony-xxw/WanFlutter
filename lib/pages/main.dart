@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:wanflutter/pages/home/article.dart';
+import 'package:wanflutter/pages/shunt.dart';
 import 'package:wanflutter/pages/system.dart';
 import 'package:wanflutter/res/colours.dart';
 import 'package:wanflutter/util/dimens.dart';
@@ -20,7 +22,7 @@ class Main extends StatefulWidget {
 
 class _Main extends State<Main> {
   int _indexNum = 0;
-  List<Widget> widgetList = [Home(), Navigation(), System(), Profile()];
+  List<Widget> widgetList = [Home(), ShuntPage(), System(), Profile()];
   final List<String> _appBarTitles = ['首页', '导航', '体系', '我'];
   final PageController _pageController = PageController();
 

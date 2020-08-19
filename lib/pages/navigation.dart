@@ -10,7 +10,7 @@ class _Navigation extends State<Navigation> {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Column(),
+      child: Text("导航"),
     );
   }
 }

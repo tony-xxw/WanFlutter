@@ -4,7 +4,9 @@ import 'package:provider/provider.dart';
 import 'package:wanflutter/common/icons_custom.dart';
 import 'package:wanflutter/model/home_model.dart';
 import 'package:wanflutter/res/colours.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:wanflutter/widgets/load_image.dart';
+import 'package:wanflutter/widgets/no_data.dart';
 
 //文章列表
 class Article extends StatefulWidget {
@@ -13,20 +15,28 @@ class Article extends StatefulWidget {
 }
 
 class _ArticleState extends State<Article> {
+  ScrollController _scrollController;
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController = ScrollController();
+  }
+
   @override
   Widget build(BuildContext context) {
     HomeModel homeModel = Provider.of(context);
-
-    if (homeModel.list.isEmpty) {
-      return Center(
-        child: Text("暂无数据"),
-      );
+    print("22222222222");
+    if (homeModel.isBusy) {
+      print("11111111111111");
+      return ArticleSkeleton();
     }
 
     return MediaQuery.removePadding(
         removeTop: true,
         context: context,
         child: ListView.builder(
+          controller: _scrollController,
           itemBuilder: (
             context,
             index,
@@ -77,7 +87,10 @@ class _ArticleState extends State<Article> {
                 item.title.toString().trim(),
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
-                style: TextStyle(fontSize: 14.0, color: Colours.bg_black),
+                style: TextStyle(
+                    fontSize: 14.0,
+                    color: Colours.bg_black,
+                    fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 10),
               Row(
@@ -108,6 +121,81 @@ class _ArticleState extends State<Article> {
                   )
                 ],
               )
+            ]),
+      ),
+    );
+  }
+}
+
+class ArticleSkeleton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+          border:
+              Border(bottom: BorderSide(width: 0.3, color: Colours.bg_gray))),
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
+        child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Expanded(
+                  child: Shimmer.fromColors(
+                baseColor: Colors.grey[300],
+                highlightColor: Colors.grey[100],
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Container(
+                              width: 24,
+                              height: 24,
+                            ),
+                            Container(
+                              margin: EdgeInsets.symmetric(horizontal: 8.0),
+                              child: Container(
+                                width: 24,
+                              ),
+                            )
+                          ],
+                        ),
+                        Container(
+                          width: 24,
+                        )
+                      ],
+                    ),
+                    SizedBox(height: 10),
+                    Container(
+                      width: 24,
+                    ),
+                    SizedBox(height: 10),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        SizedBox(height: 10),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            SizedBox(height: 10),
+                            SizedBox(
+                              width: 10.0,
+                            ),
+                            Container(
+                              width: 24,
+                            )
+                          ],
+                        )
+                      ],
+                    )
+                  ],
+                ),
+              ))
             ]),
       ),
     );

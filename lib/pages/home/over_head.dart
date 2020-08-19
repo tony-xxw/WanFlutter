@@ -62,7 +62,7 @@ class _OverHeadState extends State<OverHead> {
                 item.title.toString().trim(),
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
-                style: TextStyle(fontSize: 14.0, color: Colours.bg_black),
+                style: TextStyle(fontSize: 14.0, color: Colours.bg_black,fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 10),
               Row(

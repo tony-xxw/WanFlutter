@@ -9,7 +9,9 @@ import 'package:wanflutter/pages/home/article.dart';
 import 'package:wanflutter/pages/home/over_head.dart';
 import 'package:wanflutter/pages/home/project.dart';
 import 'package:wanflutter/provider/base/provider_widget.dart';
+import 'package:wanflutter/provider/base/view_state.dart';
 import 'package:wanflutter/res/colours.dart';
+import 'package:wanflutter/widgets/no_data.dart';
 import 'package:wanflutter/widgets/sticky_tab_bar.dart';
 
 class Home extends StatefulWidget {
@@ -42,10 +44,17 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
         model1: HomeModel(),
         model2: ProjectModal(),
         onModelReady: (homeModel, projectModel) {
+          print('状态: ${ViewState.values[homeModel.viewState.index]}');
           homeModel.initData();
           projectModel.initData();
+          print('状态: ${ViewState.values[homeModel.viewState.index]}');
         },
         builder: (context, homeModal, projectModel, child) {
+          print('状态: ${ViewState.values[homeModal.viewState.index]}');
+          if (homeModal.isBusy) {
+            return ArticleSkeleton();
+          }
+
           return Scaffold(
               body: SmartRefresher(
                   controller: homeModal.refreshController,
@@ -60,11 +69,11 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                     slivers: [
                       SliverAppBar(
                         expandedHeight: bannerHeight,
-//                  floating: true,
+                        floating: true,
                         //向下滚动时 即使列表项不在顶部,AppBar 也会向下滑动来展示
 //                  snap: true,
                         // 只有floating 为true 才会生效 ,当向下滑动 快展示AppBar时,会有一个拉伸与吸附效果
-                        pinned: true, //向上滑动时, 会收缩一部分AppBar作为展示
+                        pinned: false, //向上滑动时, 会收缩一部分AppBar作为展示
                         flexibleSpace: FlexibleSpaceBar(
                           title: Text("WanAndroid-Flutter"),
                           background: fetchBannerView(context),
@@ -72,6 +81,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                       ),
                       SliverPersistentHeader(
                           pinned: true,
+                          floating: false,
                           delegate: StickyTabBarDelegate(
                               child: TabBar(
                             isScrollable: true,
@@ -113,16 +123,15 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   Widget fetchBannerView(BuildContext context) {
     HomeModel homeModel = Provider.of(context);
     return CarouselSlider(
-      options: CarouselOptions(
-        autoPlay: true,
-        aspectRatio: 2.0,
-        enlargeCenterPage: true,
-      ),
+      // autoPlay: true,
+      // aspectRatio: 2.0,
+      // enlargeCenterPage: true,
+      options: CarouselOptions(),
       items: homeModel.banners
           .map((item) => Container(
                 child: Center(
                     child: Image.network(item.imagePath,
-                        fit: BoxFit.cover, width: 1000)),
+                        fit: BoxFit.cover, width: 1200)),
               ))
           .toList(),
     );
