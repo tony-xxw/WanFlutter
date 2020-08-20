@@ -36,6 +36,7 @@ class _ArticleState extends State<Article> {
         removeTop: true,
         context: context,
         child: ListView.builder(
+          physics: NeverScrollableScrollPhysics(),
           controller: _scrollController,
           itemBuilder: (
             context,
@@ -124,6 +125,13 @@ class _ArticleState extends State<Article> {
             ]),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _scrollController?.dispose();
+    _scrollController = null;
+    super.dispose();
   }
 }
 

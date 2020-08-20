@@ -56,6 +56,9 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
           }
 
           return Scaffold(
+              appBar: AppBar(
+                title: Text("首页"),
+              ),
               body: SmartRefresher(
                   controller: homeModal.refreshController,
                   enablePullUp: homeModal.list.isNotEmpty,
@@ -81,25 +84,30 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                       ),
                       SliverPersistentHeader(
                           pinned: true,
-                          floating: false,
                           delegate: StickyTabBarDelegate(
-                              child: TabBar(
-                            isScrollable: true,
-                            controller: _tabController,
-                            indicatorSize: TabBarIndicatorSize.tab,
-                            indicatorColor: Colours.bg_blue,
-                            labelColor: Colours.bg_blue,
-                            unselectedLabelColor: Colours.bg_gray,
-                            dragStartBehavior: DragStartBehavior.start,
-                            onTap: (index) {
-                              onTabChangeClick(index);
-                            },
-                            tabs: List.generate(
-                                _tabs.length,
-                                (index) => Tab(
-                                      text: _tabs[index],
-                                    )),
-                          ))),
+                            child: PreferredSize(
+                              preferredSize: Size(48, 48),
+                              child: Material(
+                                  color: Colours.bg_white,
+                                  child: TabBar(
+                                    isScrollable: true,
+                                    controller: _tabController,
+                                    indicatorSize: TabBarIndicatorSize.tab,
+                                    indicatorColor: Colours.bg_blue,
+                                    labelColor: Colours.bg_blue,
+                                    unselectedLabelColor: Colours.bg_gray,
+                                    dragStartBehavior: DragStartBehavior.start,
+                                    onTap: (index) {
+                                      onTabChangeClick(index);
+                                    },
+                                    tabs: List.generate(
+                                        _tabs.length,
+                                        (index) => Tab(
+                                              text: _tabs[index],
+                                            )),
+                                  )),
+                            ),
+                          )),
                       if (homeModal.articles.isNotEmpty && currentIndex == 0)
                         OverHead(),
                       SliverFillRemaining(

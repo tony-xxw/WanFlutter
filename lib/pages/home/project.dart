@@ -24,6 +24,7 @@ class _ProjectState extends State<Project> {
         removeTop: true,
         context: context,
         child: ListView.builder(
+          physics: NeverScrollableScrollPhysics(),
           itemBuilder: (context, index) {
             Article article = projectModal.list[index];
             return fetchProjectItem(context, article);

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 // Tab吸附效果
 class StickyTabBarDelegate extends SliverPersistentHeaderDelegate {
-  final TabBar child;
+  final PreferredSize child;
 
   StickyTabBarDelegate({this.child});
 

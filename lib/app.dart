@@ -35,6 +35,7 @@ class _App extends State<App> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      
       onGenerateRoute: Application.router.generator,
       theme: ThemeData(
           brightness: Brightness.light,
