@@ -11,12 +11,6 @@ import 'package:wanflutter/util/platform_utils.dart';
 
 void main() {
   runApp(App());
-
-  if (Device.isAndroid) {
-    final SystemUiOverlayStyle systemUiOverlayStyle =
-        SystemUiOverlayStyle(statusBarColor: Colors.transparent);
-    SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
-  }
 }
 
 const defaultTitle = "WanAndroid";
@@ -35,12 +29,11 @@ class _App extends State<App> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      
       onGenerateRoute: Application.router.generator,
       theme: ThemeData(
           brightness: Brightness.light,
           fontFamily: 'Georgia',
-          primaryColor: Colours.nav_item_color,
+          primaryColor: Colours.bg_primary,
           textTheme: TextTheme(
               headline1: TextStyle(fontSize: 72.0, fontWeight: FontWeight.bold),
               headline6: TextStyle(fontSize: 36.0, fontStyle: FontStyle.italic),

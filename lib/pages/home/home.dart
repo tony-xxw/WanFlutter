@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:wanflutter/model/home_model.dart';
@@ -11,6 +12,7 @@ import 'package:wanflutter/pages/home/project.dart';
 import 'package:wanflutter/provider/base/provider_widget.dart';
 import 'package:wanflutter/provider/base/view_state.dart';
 import 'package:wanflutter/res/colours.dart';
+import 'package:wanflutter/util/device_utils.dart';
 import 'package:wanflutter/widgets/no_data.dart';
 import 'package:wanflutter/widgets/sticky_tab_bar.dart';
 
@@ -30,6 +32,12 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     _tabController = TabController(vsync: this, length: 2);
+    if (Device.isAndroid) {
+      final SystemUiOverlayStyle systemUiOverlayStyle = SystemUiOverlayStyle(
+          statusBarColor: Colors.transparent,
+          statusBarIconBrightness: Brightness.light);
+      SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
+    }
     super.initState();
   }
 
@@ -56,9 +64,6 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
           }
 
           return Scaffold(
-              appBar: AppBar(
-                title: Text("首页"),
-              ),
               body: SmartRefresher(
                   controller: homeModal.refreshController,
                   enablePullUp: homeModal.list.isNotEmpty,
@@ -72,11 +77,10 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                     slivers: [
                       SliverAppBar(
                         expandedHeight: bannerHeight,
-                        floating: true,
                         //向下滚动时 即使列表项不在顶部,AppBar 也会向下滑动来展示
 //                  snap: true,
                         // 只有floating 为true 才会生效 ,当向下滑动 快展示AppBar时,会有一个拉伸与吸附效果
-                        pinned: false, //向上滑动时, 会收缩一部分AppBar作为展示
+                        pinned: true, //向上滑动时, 会收缩一部分AppBar作为展示
                         flexibleSpace: FlexibleSpaceBar(
                           title: Text("WanAndroid-Flutter"),
                           background: fetchBannerView(context),
@@ -137,9 +141,8 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
       options: CarouselOptions(),
       items: homeModel.banners
           .map((item) => Container(
-                child: Center(
-                    child: Image.network(item.imagePath,
-                        fit: BoxFit.cover, width: 1200)),
+                child: Image.network(item.imagePath,
+                    fit: BoxFit.cover,width: MediaQuery.of(context).size.width,),
               ))
           .toList(),
     );
