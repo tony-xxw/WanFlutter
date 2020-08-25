@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:wanflutter/res/colours.dart';
-import 'package:wanflutter/widgets/load_image.dart';
+import 'package:wanflutter/config/res/colours.dart';
+import 'package:wanflutter/config/widgets/load_image.dart';
 
 class System extends StatefulWidget {
   @override

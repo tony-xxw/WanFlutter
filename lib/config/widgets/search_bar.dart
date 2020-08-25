@@ -2,10 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
-import 'package:wanflutter/res/colours.dart';
-import 'package:wanflutter/util/device_utils.dart';
+import 'package:wanflutter/config/res/colours.dart';
 import 'package:wanflutter/util/theme_utils.dart';
-import 'package:wanflutter/widgets/load_image.dart';
+
+import 'load_image.dart';
 
 class SearchBar extends StatefulWidget implements PreferredSizeWidget {
   final String hintText;
@@ -42,8 +42,7 @@ class _SearchBarState extends State<SearchBar> {
   @override
   Widget build(BuildContext context) {
     final bool isDark = ThemeUtils.isDark((context));
-    final Color iconColor =
-        isDark ? Colours.dark_text_gray : Colours.bg_gray;
+    final Color iconColor = isDark ? Colours.dark_text_gray : Colours.bg_gray;
     print("isDark " + isDark.toString());
 
     Widget back = Semantics(

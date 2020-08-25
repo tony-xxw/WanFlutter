@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:wanflutter/config/res/colours.dart';
+import 'package:wanflutter/config/widgets/sticky_tab_bar.dart';
 import 'package:wanflutter/model/home_model.dart';
 import 'package:wanflutter/model/project_model.dart';
 import 'package:wanflutter/pages/home/article.dart';
@@ -11,10 +13,7 @@ import 'package:wanflutter/pages/home/over_head.dart';
 import 'package:wanflutter/pages/home/project.dart';
 import 'package:wanflutter/provider/base/provider_widget.dart';
 import 'package:wanflutter/provider/base/view_state.dart';
-import 'package:wanflutter/res/colours.dart';
 import 'package:wanflutter/util/device_utils.dart';
-import 'package:wanflutter/widgets/no_data.dart';
-import 'package:wanflutter/widgets/sticky_tab_bar.dart';
 
 class Home extends StatefulWidget {
   @override

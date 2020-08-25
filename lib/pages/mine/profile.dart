@@ -3,17 +3,20 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:wanflutter/res/colours.dart';
-import 'package:wanflutter/widgets/load_image.dart';
+import 'package:wanflutter/config/res/colours.dart';
+import 'package:wanflutter/config/widgets/load_image.dart';
+import 'package:wanflutter/routers/application.dart';
+import 'package:wanflutter/routers/routers.dart';
 
 class Profile extends StatefulWidget {
   final double spreadHeight = 200.0;
-  final List<String> mines = <String>["TODO", "我的积分", "我的收藏", "我的分享"];
+  final List<String> mines = <String>["TODO", "我的积分", "我的收藏", "我的分享", "登录"];
   final List<String> icons = <String>[
     "main/ic_todo",
     "main/ic_integral",
     "main/ic_collection",
-    "ic_ic_share"
+    "main/ic_share",
+    "main/ic_share"
   ];
 
   @override
@@ -34,10 +37,6 @@ class _Profile extends State<Profile> {
             pinned: true,
             flexibleSpace: LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {
-                print("constraints ${constraints.toString()}");
-                print("appBar Size:  ${constraints.biggest.height} ");
-                print("statusBarHeight Size:  ${statusBarHeight} ");
-                print("kToolbarHeight Size:  ${kToolbarHeight} ");
                 double biggerHeight = constraints.biggest.height;
                 double appBarHeight = biggerHeight - statusBarHeight;
 
@@ -156,32 +155,47 @@ class _Profile extends State<Profile> {
           ),
           SliverList(
               delegate: SliverChildBuilderDelegate((context, index) {
-            return Container(
-              decoration: BoxDecoration(
-                border: Border(bottom: BorderSide(width: 0.3,color: Colours.bg_gray))
+            return GestureDetector(
+              child: Container(
+                decoration: BoxDecoration(
+                    border: Border(
+                        bottom:
+                            BorderSide(width: 0.3, color: Colours.bg_gray))),
+                child: Row(
+                  children: [
+                    SizedBox(
+                      width: 20,
+                    ),
+                    LoadAssetImage(
+                      widget.icons[index],
+                      width: 24,
+                      height: 24,
+                      fit: BoxFit.fitWidth,
+                    ),
+                    SizedBox(
+                      width: 20,
+                    ),
+                    Text(
+                      widget.mines[index],
+                      style:
+                          TextStyle(fontWeight: FontWeight.w500, fontSize: 14),
+                    ),
+                  ],
+                ),
+                height: 60,
               ),
-              child: Row(
-                children: [
-                  SizedBox(
-                    width: 20,
-                  ),
-                  LoadAssetImage(
-                    widget.icons[index],
-                    width: 24,
-                    height: 24,
-                    fit: BoxFit.fitWidth,
-                  ),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  Text(widget.mines[index],style: TextStyle(fontWeight: FontWeight.w500,fontSize: 14),),
-                ],
-              ),
-              height: 60,
+              onTap: () => handleTabClick(index),
             );
           }, childCount: widget.mines.length))
         ],
       ),
     );
+  }
+
+  void handleTabClick(index) {
+    print("handleTabClick ${widget.mines[index]}");
+    if (widget.mines[index].endsWith("登录")) {
+      Application.router.navigateTo(context, Routers.login);
+    }
   }
 }

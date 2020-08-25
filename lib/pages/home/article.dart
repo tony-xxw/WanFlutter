@@ -2,11 +2,10 @@ import 'package:common_utils/common_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wanflutter/common/icons_custom.dart';
+import 'package:wanflutter/config/res/colours.dart';
+import 'package:wanflutter/config/widgets/load_image.dart';
 import 'package:wanflutter/model/home_model.dart';
-import 'package:wanflutter/res/colours.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:wanflutter/widgets/load_image.dart';
-import 'package:wanflutter/widgets/no_data.dart';
 
 //文章列表
 class Article extends StatefulWidget {

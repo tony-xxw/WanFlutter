@@ -3,11 +3,12 @@ import 'package:fluro/fluro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:wanflutter/res/colours.dart';
 import 'package:wanflutter/routers/application.dart';
 import 'package:wanflutter/routers/routers.dart';
 import 'package:wanflutter/util/device_utils.dart';
 import 'package:wanflutter/util/platform_utils.dart';
+
+import 'config/res/colours.dart';
 
 void main() {
   runApp(App());

@@ -2,17 +2,15 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:wanflutter/pages/home/article.dart';
+import 'package:wanflutter/config/res/colours.dart';
+import 'package:wanflutter/config/widgets/load_image.dart';
 import 'package:wanflutter/pages/shunt/shunt.dart';
 import 'package:wanflutter/pages/system/system.dart';
-import 'package:wanflutter/res/colours.dart';
 import 'package:wanflutter/util/dimens.dart';
 import 'package:wanflutter/util/theme_utils.dart';
-import 'package:wanflutter/widgets/load_image.dart';
 
 import 'home/home.dart';
 import 'mine/profile.dart';
-import 'shunt/navigation.dart';
 
 /// 首页
 class Main extends StatefulWidget {

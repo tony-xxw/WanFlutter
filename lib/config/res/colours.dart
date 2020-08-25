@@ -10,10 +10,11 @@ class Colours {
 
   static const Color dark_material_bg = Color(0xFF303233);
   static const Color bg_blue = Color(0xFF35BCDC);
-  static const Color bg_primary= Color(0xFF0080F9);
+  static const Color bg_primary = Color(0xFF0080F9);
   static const Color bg_gray = Color(0xFFCCCCCC);
   static const Color bg_white = Color(0xFFFFFFFF);
   static const Color bg_black = Color(0xFF333333);
+  static const Color bg_orange = Colors.orange;
 
   static const Color search_bg = Color(0xFFeff4f5);
   static const Color nav_item_color = Color(0xFF3d3d3d);

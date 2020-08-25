@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:wanflutter/generated/l10n.dart';
+import 'package:wanflutter/config/res/colours.dart';
 import 'package:wanflutter/pages/shunt/navigation.dart';
 import 'package:wanflutter/pages/system/system.dart';
-import 'package:wanflutter/res/colours.dart';
 
 class ShuntPage extends StatefulWidget {
   @override

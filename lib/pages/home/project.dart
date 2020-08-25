@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:wanflutter/config/res/colours.dart';
+import 'package:wanflutter/config/widgets/load_image.dart';
 import 'package:wanflutter/entity/articles.dart';
 import 'package:wanflutter/model/project_model.dart';
-import 'package:wanflutter/res/colours.dart';
-import 'package:wanflutter/widgets/load_image.dart';
 
 class Project extends StatefulWidget {
   @override
