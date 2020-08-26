@@ -32,6 +32,7 @@ class _Profile extends State<Profile> {
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
+            brightness: Brightness.light,
             expandedHeight: widget.spreadHeight,
             floating: true,
             pinned: true,

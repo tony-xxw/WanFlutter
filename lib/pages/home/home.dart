@@ -32,10 +32,10 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   void initState() {
     _tabController = TabController(vsync: this, length: 2);
     if (Device.isAndroid) {
-      final SystemUiOverlayStyle systemUiOverlayStyle = SystemUiOverlayStyle(
-          statusBarColor: Colors.transparent,
-          statusBarIconBrightness: Brightness.light);
-      SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
+//      final SystemUiOverlayStyle systemUiOverlayStyle = SystemUiOverlayStyle(
+//          statusBarColor: Colors.transparent,
+//          statusBarIconBrightness: Brightness.dark);
+//      SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
     }
     super.initState();
   }
@@ -46,6 +46,8 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+
+
     var bannerHeight = MediaQuery.of(context).size.width * 5 / 11;
     return ProviderWidget2<HomeModel, ProjectModal>(
         model1: HomeModel(),
@@ -75,6 +77,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                   child: CustomScrollView(
                     slivers: [
                       SliverAppBar(
+                        brightness: Brightness.light,
                         expandedHeight: bannerHeight,
                         //向下滚动时 即使列表项不在顶部,AppBar 也会向下滑动来展示
 //                  snap: true,

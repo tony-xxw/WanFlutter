@@ -15,7 +15,6 @@ class _ShuntPageState extends State<ShuntPage>
 
   @override
   void initState() {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
     super.initState();
   }
 
@@ -25,6 +24,7 @@ class _ShuntPageState extends State<ShuntPage>
       length: _tabs.length,
       child: Scaffold(
         appBar: AppBar(
+          brightness: Brightness.light,
           backgroundColor: Colours.bg_blue,
           title: TabBar(
             unselectedLabelColor: Colors.blueGrey,
