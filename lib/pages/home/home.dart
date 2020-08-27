@@ -32,10 +32,10 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   void initState() {
     _tabController = TabController(vsync: this, length: 2);
     if (Device.isAndroid) {
-//      final SystemUiOverlayStyle systemUiOverlayStyle = SystemUiOverlayStyle(
-//          statusBarColor: Colors.transparent,
-//          statusBarIconBrightness: Brightness.dark);
-//      SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
+      final SystemUiOverlayStyle systemUiOverlayStyle = SystemUiOverlayStyle(
+          statusBarColor: Colors.transparent,
+          statusBarIconBrightness: Brightness.dark);
+      SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
     }
     super.initState();
   }

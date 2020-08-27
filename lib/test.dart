@@ -1,3 +1,5 @@
+import 'package:common_utils/common_utils.dart';
+
 void main() {
   sayHello("嘿嘿");
   print("匿名闭包函数${makeAddre(3)(2).toString()}");
@@ -14,18 +16,75 @@ void main() {
   List<String> list;
 
   print(list?.length ?? -1);
+
+  print(
+      "-------------------------------------width--------------------------------------------------");
+
+  G g = G();
+  g.a();
+  g.b();
+  g.c();
+  print(
+      "-------------------------------------width--------------------------------------------------");
 }
 
-abstract class Parent {
-  void action();
-}
+abstract class Base {
+  a() {
+    print("base a()");
+  }
 
-class Childen extends Parent {
-  @override
-  void action() {
-    // TODO: implement action
+  b() {
+    print("base b()");
+  }
+
+  c() {
+    print("base c()");
   }
 }
+
+class A extends Base {
+  a() {
+//    logutil.v("a.a()", tag: "wynne");
+    print("a.a()");
+    super.a();
+  }
+
+  b() {
+//    logutil.v("a.b()", tag: "wynne");
+    print("a.b()");
+    super.b();
+  }
+}
+
+class B extends Base {
+  b() {
+//    LogUtil.v("B.b()", tag: "Wynne");
+    print("B.b()");
+    super.b();
+  }
+}
+
+class C extends Base {
+  a() {
+//    LogUtil.v("C.a()", tag: "Wynne");
+    print("C.a()");
+    super.a();
+  }
+
+  b() {
+//    LogUtil.v("C.b()", tag: "Wynne");
+    print("C.b()");
+    super.b();
+  }
+
+  c() {
+//    LogUtil.v("C.c()", tag: "Wynne");
+    print("C.c()");
+    super.c();
+  }
+}
+
+class G extends B {}
 
 void sayHello(weight, [age, name = 'xxw']) {
   print("wynne ${weight} + name ${name}");
